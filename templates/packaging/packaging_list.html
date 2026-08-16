@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+
+{% block title %}Packaging{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Packaging</h1>
+        <p class="text-muted">
+            Manage batch packaging records.
+        </p>
+    </div>
+
+    <a href="{% url 'packaging_create' %}" class="btn btn-dark">
+        Add Packaging Record
+    </a>
+
+</div>
+
+{% if packagings %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Batch</th>
+                <th>Product</th>
+                <th>Started At</th>
+                <th>Completed At</th>
+                <th>Status</th>
+                <th>Packages</th>
+                <th>Package Size</th>
+                <th>Packaged By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for packaging in packagings %}
+
+            <tr>
+
+                <td>{{ packaging.batch.batch_number }}</td>
+
+                <td>{{ packaging.batch.product.name }}</td>
+
+                <td>{{ packaging.started_at }}</td>
+
+                <td>{{ packaging.completed_at }}</td>
+
+                <td>{{ packaging.get_status_display }}</td>
+
+                <td>{{ packaging.number_of_packages }}</td>
+
+                <td>
+                    {{ packaging.package_size }}
+                    {{ packaging.get_package_unit_display }}
+                </td>
+
+                <td>{{ packaging.packaged_by }}</td>
+
+                <td>
+
+                    <a
+                        href="{% url 'packaging_update' packaging.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'packaging_delete' packaging.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No packaging records have been added yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

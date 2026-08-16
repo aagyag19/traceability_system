@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Farmer{% endblock %}
+
+{% block content %}
+
+<h1>Delete Farmer</h1>
+
+<p>
+    Are you sure you want to delete
+    <strong>{{ farmer.name }}</strong>?
+</p>
+
+<p class="text-muted">
+    This farmer belongs to
+    <strong>{{ farmer.cooperative.name }}</strong>.
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a href="{% url 'farmer_list' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

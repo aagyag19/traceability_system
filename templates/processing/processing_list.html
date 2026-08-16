@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Processing{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Processing</h1>
+        <p class="text-muted">
+            Manage batch processing records.
+        </p>
+    </div>
+
+    <a href="{% url 'processing_create' %}" class="btn btn-dark">
+        Add Processing Record
+    </a>
+
+</div>
+
+{% if processings %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Batch</th>
+                <th>Product</th>
+                <th>Started At</th>
+                <th>Completed At</th>
+                <th>Status</th>
+                <th>Processed By</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for processing in processings %}
+
+            <tr>
+
+                <td>{{ processing.batch.batch_number }}</td>
+
+                <td>{{ processing.batch.product.name }}</td>
+
+                <td>{{ processing.started_at }}</td>
+
+                <td>{{ processing.completed_at }}</td>
+
+                <td>{{ processing.get_status_display }}</td>
+
+                <td>{{ processing.processed_by }}</td>
+
+                <td>
+
+                    <a
+                        href="{% url 'processing_update' processing.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'processing_delete' processing.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No processing records have been added yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

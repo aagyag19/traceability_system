@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+
+{% block title %}Distribution{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Distribution</h1>
+        <p class="text-muted">
+            Manage product batch distribution records.
+        </p>
+    </div>
+
+    <a href="{% url 'distribution_create' %}" class="btn btn-dark">
+        Add Distribution
+    </a>
+
+</div>
+
+{% if distributions %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Batch</th>
+                <th>Product</th>
+                <th>Recipient</th>
+                <th>Destination</th>
+                <th>Dispatch Date</th>
+                <th>Delivery Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for distribution in distributions %}
+
+            <tr>
+
+                <td>{{ distribution.batch.batch_number }}</td>
+
+                <td>{{ distribution.batch.product.name }}</td>
+
+                <td>{{ distribution.recipient_name }}</td>
+
+                <td>{{ distribution.destination }}</td>
+
+                <td>{{ distribution.dispatch_date }}</td>
+
+                <td>{{ distribution.delivery_date }}</td>
+
+                <td>{{ distribution.get_status_display }}</td>
+
+                <td>
+
+                    <a
+                        href="{% url 'distribution_update' distribution.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'distribution_delete' distribution.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No distribution records have been added yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

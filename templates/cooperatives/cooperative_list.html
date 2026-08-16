@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Cooperatives{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+        <h1>Cooperatives</h1>
+        <p class="text-muted">Manage agricultural cooperatives.</p>
+    </div>
+
+    <a href="{% url 'cooperative_create' %}" class="btn btn-dark">
+        Add Cooperative
+    </a>
+</div>
+
+{% if cooperatives %}
+
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Registration Number</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for cooperative in cooperatives %}
+            <tr>
+                <td>{{ cooperative.name }}</td>
+                <td>{{ cooperative.address }}</td>
+                <td>{{ cooperative.contact }}</td>
+                <td>{{ cooperative.email }}</td>
+                <td>{{ cooperative.registration_number }}</td>
+                <td>
+                    <a
+                        href="{% url 'cooperative_update' cooperative.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'cooperative_delete' cooperative.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No cooperatives have been added yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

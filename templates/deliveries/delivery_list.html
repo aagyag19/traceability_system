@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Deliveries{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Deliveries</h1>
+        <p class="text-muted">
+            Manage farmer product deliveries.
+        </p>
+    </div>
+
+    <a href="{% url 'delivery_create' %}" class="btn btn-dark">
+        Add Delivery
+    </a>
+
+</div>
+
+{% if deliveries %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Farmer</th>
+                <th>Product</th>
+                <th>Delivery Date</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for delivery in deliveries %}
+
+            <tr>
+                <td>{{ delivery.farmer.name }}</td>
+
+                <td>{{ delivery.product.name }}</td>
+
+                <td>{{ delivery.delivery_date }}</td>
+
+                <td>{{ delivery.quantity }}</td>
+
+                <td>{{ delivery.get_unit_display }}</td>
+
+                <td>
+                    <a
+                        href="{% url 'delivery_update' delivery.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'delivery_delete' delivery.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No deliveries have been recorded yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if processing %}
+        Edit Processing
+    {% else %}
+        Add Processing
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+
+    {% if processing %}
+        Edit Processing
+    {% else %}
+        Add Processing
+    {% endif %}
+
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-dark">
+
+        {% if processing %}
+            Update Processing
+        {% else %}
+            Save Processing
+        {% endif %}
+
+    </button>
+
+    <a
+        href="{% url 'processing_list' %}"
+        class="btn btn-secondary"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

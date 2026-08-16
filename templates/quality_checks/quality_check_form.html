@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if quality_check %}
+        Edit Quality Check
+    {% else %}
+        Add Quality Check
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+    {% if quality_check %}
+        Edit Quality Check
+    {% else %}
+        Add Quality Check
+    {% endif %}
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-dark">
+        {% if quality_check %}
+            Update Quality Check
+        {% else %}
+            Save Quality Check
+        {% endif %}
+    </button>
+
+    <a
+        href="{% url 'quality_check_list' %}"
+        class="btn btn-secondary"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

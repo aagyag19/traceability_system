@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block title %}Quality Checks{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Quality Checks</h1>
+        <p class="text-muted">
+            Record and manage delivery quality inspections.
+        </p>
+    </div>
+
+    <a
+        href="{% url 'quality_check_create' %}"
+        class="btn btn-dark"
+    >
+        Add Quality Check
+    </a>
+
+</div>
+
+{% if quality_checks %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Delivery</th>
+                <th>Farmer</th>
+                <th>Product</th>
+                <th>Checked By</th>
+                <th>Check Date</th>
+                <th>Grade</th>
+                <th>Moisture</th>
+                <th>Quantity Accepted</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for check in quality_checks %}
+
+            <tr>
+                <td>{{ check.delivery.id }}</td>
+
+                <td>{{ check.delivery.farmer.name }}</td>
+
+                <td>{{ check.delivery.product.name }}</td>
+
+                <td>{{ check.checked_by }}</td>
+
+                <td>{{ check.check_date }}</td>
+
+                <td>{{ check.quality_grade }}</td>
+
+                <td>{{ check.moisture }}</td>
+
+                <td>{{ check.quantity_accepted }}</td>
+
+                <td>{{ check.status }}</td>
+
+                <td>
+
+                    <a
+                        href="{% url 'quality_check_update' check.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'quality_check_delete' check.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No quality checks have been recorded yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

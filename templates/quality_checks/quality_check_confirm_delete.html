@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Quality Check{% endblock %}
+
+{% block content %}
+
+<h1>Delete Quality Check</h1>
+
+<p>
+    Are you sure you want to delete this quality check?
+</p>
+
+<p>
+    <strong>Product:</strong>
+    {{ quality_check.delivery.product.name }}
+    <br>
+
+    <strong>Farmer:</strong>
+    {{ quality_check.delivery.farmer.name }}
+    <br>
+
+    <strong>Grade:</strong>
+    {{ quality_check.quality_grade }}
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a
+        href="{% url 'quality_check_list' %}"
+        class="btn btn-secondary"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

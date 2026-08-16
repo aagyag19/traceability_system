@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Products{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Products</h1>
+        <p class="text-muted">
+            Manage agricultural products.
+        </p>
+    </div>
+
+    <a href="{% url 'product_create' %}" class="btn btn-dark">
+        Add Product
+    </a>
+
+</div>
+
+{% if products %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Unit</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for product in products %}
+
+            <tr>
+                <td>{{ product.name }}</td>
+
+                <td>{{ product.category }}</td>
+
+                <td>{{ product.description }}</td>
+
+                <td>{{ product.get_unit_display }}</td>
+
+                <td>{{ product.get_status_display }}</td>
+
+                <td>
+                    <a
+                        href="{% url 'product_update' product.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'product_delete' product.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No products have been added yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

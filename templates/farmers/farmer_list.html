@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Farmers{% endblock %}
+
+{% block content %}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+        <h1>Farmers</h1>
+        <p class="text-muted">
+            Manage farmers registered under cooperatives.
+        </p>
+    </div>
+
+    <a href="{% url 'farmer_create' %}" class="btn btn-dark">
+        Add Farmer
+    </a>
+
+</div>
+
+
+{% if farmers %}
+
+<div class="table-responsive">
+
+    <table class="table table-bordered table-hover">
+
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Cooperative</th>
+                <th>Contact</th>
+                <th>Email</th>
+                <th>Date of Birth</th>
+                <th>Registration Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+
+        <tbody>
+
+            {% for farmer in farmers %}
+
+            <tr>
+                <td>{{ farmer.name }}</td>
+                <td>{{ farmer.cooperative.name }}</td>
+                <td>{{ farmer.contact }}</td>
+                <td>{{ farmer.email }}</td>
+                <td>{{ farmer.date_of_birth }}</td>
+                <td>{{ farmer.registration_date }}</td>
+                <td>{{ farmer.status }}</td>
+                <td>
+                    <a
+                        href="{% url 'farmer_update' farmer.pk %}"
+                        class="btn btn-sm btn-secondary"
+                    >
+                        Edit
+                    </a>
+
+                    <a
+                        href="{% url 'farmer_delete' farmer.pk %}"
+                        class="btn btn-sm btn-danger"
+                    >
+                        Delete
+                    </a>
+
+                </td>
+            </tr>
+
+            {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+    No farmers have been added yet.
+</div>
+
+{% endif %}
+
+{% endblock %}

@@ -25,8 +25,14 @@ class Farmer(models.Model):
     email = models.EmailField(blank=True)
     date_of_birth = models.DateField(null=True, blank=True)
     registration_date = models.DateField(auto_now_add=True)
-    status = models.CharField(max_length=20, default='Active')
-
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+    ],
+    default='Active'
+    )
     def __str__(self):
         return self.name
 
@@ -35,9 +41,24 @@ class Product(models.Model):
     name = models.CharField(max_length=150)
     category = models.CharField(max_length=100)
     description = models.TextField(blank=True)
-    unit = models.CharField(max_length=20, default='kg')
-    status = models.CharField(max_length=20, default='Active')
-
+    unit =  models.CharField(
+    max_length=20,
+    choices=[
+        ('kg', 'Kilogram (kg)'),
+        ('g', 'Gram (g)'),
+        ('L', 'Litre (L)'),
+        ('ml', 'Millilitre (ml)'),
+    ],
+    default='kg'
+    )
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ('Active', 'Active'),
+        ('Inactive', 'Inactive'),
+    ],
+    default='Active'
+    )
     def __str__(self):
         return self.name
 
@@ -56,7 +77,16 @@ class Delivery(models.Model):
     )
     delivery_date = models.DateField()
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    unit = models.CharField(max_length=20, default='kg')
+    unit =  models.CharField(
+    max_length=20,
+    choices=[
+        ('kg', 'Kilogram (kg)'),
+        ('g', 'Gram (g)'),
+        ('L', 'Litre (L)'),
+        ('ml', 'Millilitre (ml)'),
+    ],
+    default='kg'
+    )
     remarks = models.TextField(blank=True)
 
     def __str__(self):
@@ -72,7 +102,14 @@ class QualityCheck(models.Model):
     )
     checked_by = models.CharField(max_length=150)
     check_date = models.DateField()
-    quality_grade = models.CharField(max_length=20)
+    quality_grade =  models.CharField(
+    max_length=20,
+    choices=[
+        ('A', 'A'),
+        ('B', 'B'),
+        ('C', 'C'),
+    ]
+    )
     moisture = models.DecimalField(
         max_digits=5,
         decimal_places=2,
@@ -83,7 +120,15 @@ class QualityCheck(models.Model):
         max_digits=10,
         decimal_places=2
     )
-    status = models.CharField(max_length=20)
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ('Pending', 'Pending'),
+        ('Passed', 'Passed'),
+        ('Failed', 'Failed'),
+    ],
+    default='Pending'
+    )
     remarks = models.TextField(blank=True)
 
     def __str__(self):
@@ -103,8 +148,26 @@ class Batch(models.Model):
     )
     batch_date = models.DateField()
     quantity = models.DecimalField(max_digits=10, decimal_places=2)
-    unit = models.CharField(max_length=20, default='kg')
-    status = models.CharField(max_length=30, default='Created')
+    unit =  models.CharField(
+    max_length=20,
+    choices=[
+        ('kg', 'Kilogram (kg)'),
+        ('g', 'Gram (g)'),
+        ('L', 'Litre (L)'),
+        ('ml', 'Millilitre (ml)'),
+    ],
+    default='kg'
+    )
+    status = models.CharField(
+    max_length=30,
+    choices=[
+        ('Created', 'Created'),
+        ('Processing', 'Processing'),
+        ('Packaged', 'Packaged'),
+        ('Distributed', 'Distributed'),
+    ],
+    default='Created'
+    )
     remarks = models.TextField(blank=True)
 
     def __str__(self):
@@ -120,7 +183,15 @@ class Processing(models.Model):
     )
     started_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=20, default='Pending')
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ('Pending', 'Pending'),
+        ('In Progress', 'In Progress'),
+        ('Completed', 'Completed'),
+    ],
+    default='Pending'
+    )
     processed_by = models.CharField(max_length=150, blank=True)
     process_description = models.TextField(blank=True)
     remarks = models.TextField(blank=True)
@@ -137,7 +208,15 @@ class Packaging(models.Model):
     )
     started_at = models.DateTimeField(null=True, blank=True)
     completed_at = models.DateTimeField(null=True, blank=True)
-    status = models.CharField(max_length=20, default='Pending')
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ('Pending', 'Pending'),
+        ('In Progress', 'In Progress'),
+        ('Completed', 'Completed'),
+    ],
+    default='Pending'
+    )
     number_of_packages = models.PositiveIntegerField(null=True, blank=True)
     package_size = models.DecimalField(
         max_digits=8,
@@ -145,7 +224,17 @@ class Packaging(models.Model):
         null=True,
         blank=True
     )
-    package_unit = models.CharField(max_length=20, default='kg')
+    package_unit = models.CharField(
+    max_length=20,
+    choices=[
+        ('kg', 'Kilogram (kg)'),
+        ('g', 'Gram (g)'),
+        ('L', 'Litre (L)'),
+        ('ml', 'Millilitre (ml)'),
+        ('pcs', 'Pieces'),
+    ],
+    default='kg'
+    )
     packaged_by = models.CharField(max_length=150, blank=True)
     remarks = models.TextField(blank=True)
 
@@ -163,7 +252,15 @@ class Distribution(models.Model):
     destination = models.CharField(max_length=200)
     dispatch_date = models.DateField()
     delivery_date = models.DateField(null=True, blank=True)
-    status = models.CharField(max_length=20, default='Pending')
+    status = models.CharField(
+    max_length=20,
+    choices=[
+        ('Pending', 'Pending'),
+        ('In Transit', 'In Transit'),
+        ('Delivered', 'Delivered'),
+    ],
+    default='Pending'
+    )
     remarks = models.TextField(blank=True)
 
     def __str__(self):

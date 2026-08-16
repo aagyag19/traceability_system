@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Cooperative{% endblock %}
+
+{% block content %}
+
+<h1>Delete Cooperative</h1>
+
+<p>
+    Are you sure you want to delete
+    <strong>{{ cooperative.name }}</strong>?
+</p>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a href="{% url 'cooperative_list' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+</form>
+
+{% endblock %}

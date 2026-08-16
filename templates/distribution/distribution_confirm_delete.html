@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Distribution{% endblock %}
+
+{% block content %}
+
+<h1>Delete Distribution</h1>
+
+<p>
+    Are you sure you want to delete this distribution record?
+</p>
+
+<p>
+    <strong>Batch:</strong>
+    {{ distribution.batch.batch_number }}
+    <br>
+
+    <strong>Product:</strong>
+    {{ distribution.batch.product.name }}
+    <br>
+
+    <strong>Recipient:</strong>
+    {{ distribution.recipient_name }}
+    <br>
+
+    <strong>Destination:</strong>
+    {{ distribution.destination }}
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a
+        href="{% url 'distribution_list' %}"
+        class="btn btn-secondary"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {% if distribution %}
+        Edit Distribution
+    {% else %}
+        Add Distribution
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+
+<h1 class="mb-4">
+
+    {% if distribution %}
+        Edit Distribution
+    {% else %}
+        Add Distribution
+    {% endif %}
+
+</h1>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-dark">
+
+        {% if distribution %}
+            Update Distribution
+        {% else %}
+            Save Distribution
+        {% endif %}
+
+    </button>
+
+    <a
+        href="{% url 'distribution_list' %}"
+        class="btn btn-secondary"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

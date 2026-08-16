@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Processing{% endblock %}
+
+{% block content %}
+
+<h1>Delete Processing Record</h1>
+
+<p>
+    Are you sure you want to delete the processing record for
+    <strong>{{ processing.batch.batch_number }}</strong>?
+</p>
+
+<p>
+    <strong>Product:</strong>
+    {{ processing.batch.product.name }}
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a
+        href="{% url 'processing_list' %}"
+        class="btn btn-secondary"
+    >
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}

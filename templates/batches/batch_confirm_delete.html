@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Batch{% endblock %}
+
+{% block content %}
+
+<h1>Delete Batch</h1>
+
+<p>
+    Are you sure you want to delete
+    <strong>{{ batch.batch_number }}</strong>?
+</p>
+
+<p>
+    <strong>Product:</strong>
+    {{ batch.product.name }}
+</p>
+
+<form method="POST">
+
+    {% csrf_token %}
+
+    <button type="submit" class="btn btn-danger">
+        Yes, Delete
+    </button>
+
+    <a href="{% url 'batch_list' %}" class="btn btn-secondary">
+        Cancel
+    </a>
+
+</form>
+
+{% endblock %}
