@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify Product{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Verify Product</h1>
+
+    <p>
+        Enter the batch number to view product traceability information.
+    </p>
+
+    <form method="GET">
+
+        <input
+            type="text"
+            name="batch_number"
+            placeholder="Enter Batch Number"
+            value="{{ batch_number|default:'' }}"
+        >
+
+        <button type="submit" class="btn btn-dark">
+            Search
+        </button>
+
+    </form>
+
+
+    {% if batch %}
+
+        <hr>
+
+        <!-- BATCH / PRODUCT -->
+
+        <h2>Product Information</h2>
+
+        <p>
+            <strong>Batch Number:</strong>
+            {{ batch.batch_number }}
+        </p>
+
+        <p>
+            <strong>Product:</strong>
+            {{ batch.product.name }}
+        </p>
+
+        <p>
+            <strong>Category:</strong>
+            {{ batch.product.category }}
+        </p>
+
+        <p>
+            <strong>Description:</strong>
+            {{ batch.product.description }}
+        </p>
+
+        <p>
+            <strong>Batch Date:</strong>
+            {{ batch.batch_date }}
+        </p>
+
+        <p>
+            <strong>Quantity:</strong>
+            {{ batch.quantity }}
+            {{ batch.get_unit_display }}
+        </p>
+
+
+        <hr>
+
+        <!-- FARMER + DELIVERY -->
+
+        <h2>Farm & Delivery Information</h2>
+
+        {% for delivery in batch.deliveries.all %}
+
+            <h3>Delivery</h3>
+
+            <p>
+                <strong>Farmer:</strong>
+                {{ delivery.farmer.name }}
+            </p>
+
+            <p>
+                <strong>Cooperative:</strong>
+                {{ delivery.farmer.cooperative.name }}
+            </p>
+
+            <p>
+                <strong>Farm Address:</strong>
+                {{ delivery.farmer.address }}
+            </p>
+
+            <p>
+                <strong>Delivery Date:</strong>
+                {{ delivery.delivery_date }}
+            </p>
+
+            <p>
+                <strong>Delivered Quantity:</strong>
+                {{ delivery.quantity }}
+                {{ delivery.get_unit_display }}
+            </p>
+
+        {% endfor %}
+
+
+        <hr>
+
+        <!-- QUALITY CHECK -->
+
+        <h2>Quality Check</h2>
+
+        {% if quality_check %}
+
+            <p>
+                <strong>Quality Grade:</strong>
+                {{ quality_check.get_quality_grade_display }}
+            </p>
+
+            <p>
+                <strong>Moisture:</strong>
+                {{ quality_check.moisture }}
+            </p>
+
+            <p>
+                <strong>Quantity Accepted:</strong>
+                {{ quality_check.quantity_accepted }}
+            </p>
+
+            <p>
+                <strong>Status:</strong>
+                {{ quality_check.get_status_display }}
+            </p>
+
+            <p>
+                <strong>Check Date:</strong>
+                {{ quality_check.check_date }}
+            </p>
+
+        {% else %}
+
+            <p>
+                Quality check information is not available.
+            </p>
+
+        {% endif %}
+
+
+        <hr>
+
+        <!-- PROCESSING -->
+
+        <h2>Processing</h2>
+
+        {% if processing %}
+
+            <p>
+                <strong>Status:</strong>
+                {{ processing.get_status_display }}
+            </p>
+
+            <p>
+                <strong>Started At:</strong>
+                {{ processing.started_at }}
+            </p>
+
+            <p>
+                <strong>Completed At:</strong>
+                {{ processing.completed_at }}
+            </p>
+
+            <p>
+                <strong>Processed By:</strong>
+                {{ processing.processed_by }}
+            </p>
+
+            <p>
+                <strong>Process Description:</strong>
+                {{ processing.process_description }}
+            </p>
+
+        {% else %}
+
+            <p>
+                Processing information is not available.
+            </p>
+
+        {% endif %}
+
+
+        <hr>
+
+        <!-- PACKAGING -->
+
+        <h2>Packaging</h2>
+
+        {% if packaging %}
+
+            <p>
+                <strong>Status:</strong>
+                {{ packaging.get_status_display }}
+            </p>
+
+            <p>
+                <strong>Started At:</strong>
+                {{ packaging.started_at }}
+            </p>
+
+            <p>
+                <strong>Completed At:</strong>
+                {{ packaging.completed_at }}
+            </p>
+
+            <p>
+                <strong>Number of Packages:</strong>
+                {{ packaging.number_of_packages }}
+            </p>
+
+            <p>
+                <strong>Package Size:</strong>
+                {{ packaging.package_size }}
+                {{ packaging.get_package_unit_display }}
+            </p>
+
+            <p>
+                <strong>Packaged By:</strong>
+                {{ packaging.packaged_by }}
+            </p>
+
+        {% else %}
+
+            <p>
+                Packaging information is not available.
+            </p>
+
+        {% endif %}
+
+
+        <hr>
+
+        <!-- DISTRIBUTION -->
+
+        <h2>Distribution</h2>
+
+        {% if distributions %}
+
+            {% for distribution in distributions %}
+
+                <h3>Distribution Record</h3>
+
+                <p>
+                    <strong>Recipient:</strong>
+                    {{ distribution.recipient_name }}
+                </p>
+
+                <p>
+                    <strong>Destination:</strong>
+                    {{ distribution.destination }}
+                </p>
+
+                <p>
+                    <strong>Dispatch Date:</strong>
+                    {{ distribution.dispatch_date }}
+                </p>
+
+                <p>
+                    <strong>Delivery Date:</strong>
+                    {{ distribution.delivery_date }}
+                </p>
+
+                <p>
+                    <strong>Status:</strong>
+                    {{ distribution.get_status_display }}
+                </p>
+
+            {% endfor %}
+
+        {% else %}
+
+            <p>
+                Distribution information is not available.
+            </p>
+
+        {% endif %}
+
+
+    {% elif batch_number %}
+
+        <div class="alert alert-danger">
+            No batch found with this batch number.
+        </div>
+
+    {% endif %}
+
+</div>
+
+{% endblock %}

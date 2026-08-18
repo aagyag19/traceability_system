@@ -1,5 +1,16 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Cooperative, Farmer, Product, Delivery, QualityCheck, Batch, Processing, Packaging, Distribution
+from .models import(
+     Cooperative, 
+     Farmer, 
+     Product, 
+     Delivery, 
+     QualityCheck, 
+     Batch, 
+     Processing, 
+     Packaging, 
+     Distribution
+)
+from django.contrib.auth.decorators import login_required
 from .forms import (
     CooperativeForm,
     FarmerForm,
@@ -12,10 +23,11 @@ from .forms import (
     DistributionForm
 )
 
+@login_required
 def dashboard(request):
     return render(request, 'dashboard.html')
 
-
+@login_required
 def cooperative_list(request):
     cooperatives = Cooperative.objects.all()
     return render(
@@ -24,7 +36,7 @@ def cooperative_list(request):
         {'cooperatives': cooperatives}
     )
 
-
+@login_required
 def cooperative_create(request):
     if request.method == 'POST':
         form = CooperativeForm(request.POST)
@@ -42,7 +54,7 @@ def cooperative_create(request):
     )
 
 
-
+@login_required
 def cooperative_update(request, pk):
     cooperative = Cooperative.objects.get(pk=pk)
 
@@ -64,7 +76,7 @@ def cooperative_update(request, pk):
         }
     )
 
-
+@login_required
 def cooperative_delete(request, pk):
     cooperative = Cooperative.objects.get(pk=pk)
 
@@ -78,7 +90,7 @@ def cooperative_delete(request, pk):
         {'cooperative': cooperative}
     )
 
-
+@login_required
 def farmer_list(request):
     farmers = Farmer.objects.select_related('cooperative').all()
 
@@ -88,7 +100,7 @@ def farmer_list(request):
         {'farmers': farmers}
     )
 
-
+@login_required
 def farmer_create(request):
     if request.method == 'POST':
         form = FarmerForm(request.POST)
@@ -105,6 +117,7 @@ def farmer_create(request):
         {'form': form}
     )
 
+@login_required
 def farmer_update(request, pk):
     farmer = Farmer.objects.get(pk=pk)
 
@@ -126,7 +139,7 @@ def farmer_update(request, pk):
         }
     )
 
-
+@login_required
 def farmer_delete(request, pk):
     farmer = Farmer.objects.get(pk=pk)
 
@@ -141,6 +154,7 @@ def farmer_delete(request, pk):
     )
 
 
+@login_required
 def product_list(request):
     products = Product.objects.all()
 
@@ -150,7 +164,7 @@ def product_list(request):
         {'products': products}
     )
 
-
+@login_required
 def product_create(request):
     if request.method == 'POST':
         form = ProductForm(request.POST)
@@ -167,33 +181,7 @@ def product_create(request):
         {'form': form}
     )
 
-def product_list(request):
-    products = Product.objects.all()
-
-    return render(
-        request,
-        'products/product_list.html',
-        {'products': products}
-    )
-
-
-def product_create(request):
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-
-        if form.is_valid():
-            form.save()
-            return redirect('product_list')
-    else:
-        form = ProductForm()
-
-    return render(
-        request,
-        'products/product_form.html',
-        {'form': form}
-    )
-
-
+@login_required
 def product_update(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
@@ -215,7 +203,7 @@ def product_update(request, pk):
         }
     )
 
-
+@login_required
 def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
@@ -229,6 +217,7 @@ def product_delete(request, pk):
         {'product': product}
     )
 
+@login_required
 def delivery_list(request):
     deliveries = Delivery.objects.select_related(
         'farmer',
@@ -242,6 +231,7 @@ def delivery_list(request):
     )
 
 
+@login_required
 def delivery_create(request):
     if request.method == 'POST':
         form = DeliveryForm(request.POST)
@@ -258,7 +248,7 @@ def delivery_create(request):
         {'form': form}
     )
 
-
+@login_required
 def delivery_update(request, pk):
     delivery = get_object_or_404(Delivery, pk=pk)
 
@@ -283,7 +273,7 @@ def delivery_update(request, pk):
         }
     )
 
-
+@login_required
 def delivery_delete(request, pk):
     delivery = get_object_or_404(Delivery, pk=pk)
 
@@ -297,6 +287,7 @@ def delivery_delete(request, pk):
         {'delivery': delivery}
     )
 
+@login_required
 def quality_check_list(request):
     quality_checks = QualityCheck.objects.select_related(
         'delivery',
@@ -310,7 +301,7 @@ def quality_check_list(request):
         {'quality_checks': quality_checks}
     )
 
-
+@login_required
 def quality_check_create(request):
     if request.method == 'POST':
         form = QualityCheckForm(request.POST)
@@ -327,7 +318,7 @@ def quality_check_create(request):
         {'form': form}
     )
 
-
+@login_required
 def quality_check_update(request, pk):
     quality_check = get_object_or_404(
         QualityCheck,
@@ -357,7 +348,7 @@ def quality_check_update(request, pk):
         }
     )
 
-
+@login_required
 def quality_check_delete(request, pk):
     quality_check = get_object_or_404(
         QualityCheck,
@@ -374,6 +365,7 @@ def quality_check_delete(request, pk):
         {'quality_check': quality_check}
     )
 
+@login_required
 def batch_list(request):
     batches = Batch.objects.select_related(
         'product'
@@ -387,7 +379,7 @@ def batch_list(request):
         {'batches': batches}
     )
 
-
+@login_required
 def batch_create(request):
     if request.method == 'POST':
         form = BatchForm(request.POST)
@@ -404,7 +396,7 @@ def batch_create(request):
         {'form': form}
     )
 
-
+@login_required
 def batch_update(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
 
@@ -429,7 +421,7 @@ def batch_update(request, pk):
         }
     )
 
-
+@login_required
 def batch_delete(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
 
@@ -443,6 +435,7 @@ def batch_delete(request, pk):
         {'batch': batch}
     )
 
+@login_required
 def processing_list(request):
     processings = Processing.objects.select_related(
         'batch',
@@ -456,6 +449,7 @@ def processing_list(request):
     )
 
 
+@login_required
 def processing_create(request):
     if request.method == 'POST':
         form = ProcessingForm(request.POST)
@@ -472,7 +466,7 @@ def processing_create(request):
         {'form': form}
     )
 
-
+@login_required
 def processing_update(request, pk):
     processing = get_object_or_404(
         Processing,
@@ -502,7 +496,7 @@ def processing_update(request, pk):
         }
     )
 
-
+@login_required
 def processing_delete(request, pk):
     processing = get_object_or_404(
         Processing,
@@ -519,7 +513,7 @@ def processing_delete(request, pk):
         {'processing': processing}
     )
 
-
+@login_required
 def packaging_list(request):
     packagings = Packaging.objects.select_related(
         'batch',
@@ -532,7 +526,7 @@ def packaging_list(request):
         {'packagings': packagings}
     )
 
-
+@login_required
 def packaging_create(request):
     if request.method == 'POST':
         form = PackagingForm(request.POST)
@@ -549,7 +543,7 @@ def packaging_create(request):
         {'form': form}
     )
 
-
+@login_required
 def packaging_update(request, pk):
     packaging = get_object_or_404(
         Packaging,
@@ -579,7 +573,7 @@ def packaging_update(request, pk):
         }
     )
 
-
+@login_required
 def packaging_delete(request, pk):
     packaging = get_object_or_404(
         Packaging,
@@ -596,6 +590,7 @@ def packaging_delete(request, pk):
         {'packaging': packaging}
     )
 
+@login_required
 def distribution_list(request):
     distributions = Distribution.objects.select_related(
         'batch',
@@ -608,7 +603,7 @@ def distribution_list(request):
         {'distributions': distributions}
     )
 
-
+@login_required
 def distribution_create(request):
     if request.method == 'POST':
         form = DistributionForm(request.POST)
@@ -625,7 +620,7 @@ def distribution_create(request):
         {'form': form}
     )
 
-
+@login_required
 def distribution_update(request, pk):
     distribution = get_object_or_404(
         Distribution,
@@ -655,7 +650,7 @@ def distribution_update(request, pk):
         }
     )
 
-
+@login_required
 def distribution_delete(request, pk):
     distribution = get_object_or_404(
         Distribution,
@@ -670,4 +665,63 @@ def distribution_delete(request, pk):
         request,
         'distribution/distribution_confirm_delete.html',
         {'distribution': distribution}
+    )
+
+
+def verify_batch(request):
+    batch = None
+    batch_number = request.GET.get('batch_number')
+
+    if batch_number:
+        try:
+            batch = Batch.objects.select_related(
+                'product'
+            ).prefetch_related(
+                'deliveries__farmer__cooperative'
+            ).get(
+                batch_number=batch_number
+            )
+        except Batch.DoesNotExist:
+            batch = None
+
+    quality_check = None
+    processing = None
+    packaging = None
+    distributions = []
+
+    if batch:
+        # Get quality check from the deliveries used in this batch
+        for delivery in batch.deliveries.all():
+            try:
+                quality_check = delivery.quality_check
+                break
+            except QualityCheck.DoesNotExist:
+                continue
+
+        # Get processing record
+        try:
+            processing = batch.processing
+        except Processing.DoesNotExist:
+            processing = None
+
+        # Get packaging record
+        try:
+            packaging = batch.packaging
+        except Packaging.DoesNotExist:
+            packaging = None
+
+        # Get distribution records
+        distributions = batch.distributions.all()
+
+    return render(
+        request,
+        'public/verify_batch.html',
+        {
+            'batch': batch,
+            'batch_number': batch_number,
+            'quality_check': quality_check,
+            'processing': processing,
+            'packaging': packaging,
+            'distributions': distributions,
+        }
     )
