@@ -3,7 +3,8 @@ from django.contrib.auth import views as auth_views
 from . import views
 
 urlpatterns = [
-    path('', views.dashboard, name='dashboard'),
+    path('dashboard/', views.dashboard, name='dashboard'),
+    path('', views.home, name='home'),
 
     path(
         'cooperatives/',
@@ -253,4 +254,11 @@ urlpatterns = [
         views.verify_batch,
         name='verify_batch'
     ),
+
+    path(
+        'batch/<int:pk>/qr/',
+        views.batch_qr,
+        name='batch_qr'
+    ),
+
 ]

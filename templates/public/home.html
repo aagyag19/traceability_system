@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+
+{% block title %}Agro Products Traceability{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Agro Products Traceability System</h1>
+
+    <p>
+        Verify the origin and traceability of agricultural products.
+    </p>
+
+    <a href="{% url 'verify_batch' %}" class="btn btn-dark">
+        Verify a Product
+    </a>
+
+    <a href="{% url 'login' %}" class="btn btn-secondary">
+        Admin Login
+    </a>
+
+</div>
+
+{% endblock %}

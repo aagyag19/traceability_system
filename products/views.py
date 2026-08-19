@@ -22,6 +22,15 @@ from .forms import (
     PackagingForm,
     DistributionForm
 )
+import qrcode
+from io import BytesIO
+from django.http import HttpResponse
+
+def home(request):
+    if request.user.is_authenticated:
+        return redirect('dashboard')
+
+    return render(request, 'public/home.html')
 
 @login_required
 def dashboard(request):
@@ -724,4 +733,22 @@ def verify_batch(request):
             'packaging': packaging,
             'distributions': distributions,
         }
+    )
+
+@login_required
+def batch_qr(request, pk):
+    batch = get_object_or_404(Batch, pk=pk)
+
+    verification_url = request.build_absolute_uri(
+        f'/verify/?batch_number={batch.batch_number}'
+    )
+
+    qr = qrcode.make(verification_url)
+
+    buffer = BytesIO()
+    qr.save(buffer, format='PNG')
+
+    return HttpResponse(
+        buffer.getvalue(),
+        content_type='image/png'
     )
