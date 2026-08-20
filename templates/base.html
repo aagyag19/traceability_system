@@ -18,9 +18,32 @@
     <!-- Navigation Bar -->
     <nav class="navbar navbar-dark bg-dark">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'dashboard' %}">
-                Agro Products Traceability
-            </a>
+
+            {% if request.resolver_match.url_name == 'home' %}
+
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    Agro Products Traceability
+                </a>
+
+            {% elif user.is_authenticated %}
+
+                <a class="navbar-brand" href="{% url 'dashboard' %}">
+                    Agro Products Traceability
+                </a>
+
+                <form method="post" action="{% url 'logout' %}" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit">Logout</button>
+                </form>
+
+            {% else %}
+
+                <a class="navbar-brand" href="{% url 'home' %}">
+                    Agro Products Traceability
+                </a>
+
+            {% endif %}
+
         </div>
     </nav>
 

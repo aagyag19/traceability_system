@@ -9,8 +9,11 @@
     <h1>Verify Product</h1>
 
     <p>
-        Enter the batch number to view product traceability information.
+        Verify the origin and journey of an agricultural product.
     </p>
+
+    <!-- Search by Batch Number -->
+    <h3>Search by Batch Number</h3>
 
     <form method="GET">
 
@@ -26,6 +29,72 @@
         </button>
 
     </form>
+
+    <hr>
+
+    <!-- Scan QR Code -->
+    <h3>Scan QR Code</h3>
+
+    <p>
+        Scan the QR code on the product package to view its traceability information.
+    </p>
+
+    <button
+        type="button"
+        class="btn btn-dark"
+        onclick="startScanner()">
+        📷 Scan QR Code
+    </button>
+
+    <div
+        id="qr-reader"
+        style="width: 300px; margin-top: 20px; display: none;">
+    </div>
+
+    <p
+        id="scanner-message"
+        style="margin-top: 10px;">
+    </p>
+
+    <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
+    <script>
+
+        let scanner;
+
+        function startScanner() {
+
+            document.getElementById("qr-reader").style.display = "block";
+
+            scanner = new Html5Qrcode("qr-reader");
+
+            scanner.start(
+                { facingMode: "environment" },
+
+                {
+                    fps: 10,
+                    qrbox: 250
+                },
+
+                function(decodedText) {
+
+                    window.location.href = decodedText;
+
+                },
+
+                function(errorMessage) {
+                    // Ignore scanning errors
+                }
+
+            ).catch(function(error) {
+
+                document.getElementById("scanner-message").innerText =
+                    "Unable to access the camera. Please allow camera permission.";
+
+            });
+        }
+
+    </script>
 
 
     {% if batch %}

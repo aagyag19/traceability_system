@@ -27,9 +27,6 @@ from io import BytesIO
 from django.http import HttpResponse
 
 def home(request):
-    if request.user.is_authenticated:
-        return redirect('dashboard')
-
     return render(request, 'public/home.html')
 
 @login_required
