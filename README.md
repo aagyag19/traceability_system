@@ -56,6 +56,7 @@ This project addresses these challenges by providing a centralized web-based sys
 * Provide logout functionality for authenticated users.
 
 ## System Workflow
+```text
 Farmer
 ↓
 Produce Delivery
@@ -71,6 +72,7 @@ Packaging
 QR Code Generation
 ↓
 Consumer Verification
+```
 
 ## Technology Stack
 ### Frontend
@@ -99,7 +101,9 @@ Consumers do not need to create an account. They can access relevant product inf
 ## Project Structure
 The project follows the standard Django project structure.
 
+```text
 sixth_sem_project/
+
 │
 ├── manage.py
 ├── README.md
@@ -119,6 +123,7 @@ sixth_sem_project/
 ├── templates/
 ├── static/
 └── ...
+```
 
 The structure above is a simplified representation and may change as development progresses.
 
