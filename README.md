@@ -1,14 +1,14 @@
-# Product Management and Traceability Information System for Agricultural Cooperatives
-# Project Overview
+## Product Management and Traceability Information System for Agricultural Cooperatives
+## Project Overview
 The Product Management and Traceability Information System for Agricultural Cooperatives is a web-based system developed to enable agricultural cooperatives in Nepal to digitally manage and track packaged agro-products throughout different stages of the supply chain.
 The system centralizes information related to farmers, produce deliveries, quality inspections, product batches, processing, and packaging. It also allows consumers to access product traceability information using batch numbers or QR codes.
 The project is being developed as a sixth-semester academic project using the Incremental Development Model.
 
-# Problem Statement
+## Problem Statement
 Agricultural cooperatives may face difficulties in maintaining accurate and well-organized records throughout the product lifecycle. Manual record keeping and fragmented information can make it difficult to trace products and provide consumers with clear information about their origin.
 This project addresses these challenges by providing a centralized web-based system for managing product information and improving traceability.
 
-# Objectives
+## Objectives
 * Establish a centralized database for managing agricultural product information.
 * Digitize farmer and produce delivery records.
 * Record and manage product quality checks.
@@ -19,7 +19,7 @@ This project addresses these challenges by providing a centralized web-based sys
 * Provide a centralized system for cooperative staff to manage traceability records.
 * Generate reports related to farmers, batches, and production activities.
 
-# Key Features
+## Key Features
 # Farmer Management
 * Register and manage farmer information.
 * Record produce deliveries associated with farmers.
@@ -53,7 +53,7 @@ This project addresses these challenges by providing a centralized web-based sys
 * Provide logout functionality for authenticated users.
 
 
-# System Workflow
+## System Workflow
 Farmer
    ↓
 Produce Delivery
@@ -71,7 +71,7 @@ QR Code Generation
 Consumer Verification
 
 
-# Technology Stack
+## Technology Stack
 # Frontend
 * HTML5
 * CSS3
@@ -92,12 +92,12 @@ Consumer Verification
 * GitHub
 
 
-# User Access
+## User Access
 The system primarily allows cooperative staff and administrators to manage records and product traceability information.
 Consumers do not need to create an account. They can access relevant product information through the public verification interface using a batch number or QR code.
 
 
-# Project Structure
+## Project Structure
 The project follows the standard Django project structure.
 
 sixth_sem_project/
@@ -124,7 +124,7 @@ sixth_sem_project/
 The structure above is a simplified representation and may change as development progresses.
 
 
-# Installation and Setup
+## Installation and Setup
 1. Clone the repository
 git clone <repository-url>
 cd sixth_sem_project
@@ -152,7 +152,7 @@ Then open the application in your browser:
 http://127.0.0.1:8000/
 
 
-# Screenshots
+## Screenshots
 Screenshots of the system will be added here as development progresses.
 Planned screenshots include:
 * Login page
@@ -165,7 +165,7 @@ Planned screenshots include:
 * Consumer verification page
 
 
-# Expected Outcomes
+## Expected Outcomes
 The completed system is expected to provide:
 * A web-based traceability solution designed for agricultural cooperatives.
 * Centralized and well-organized product records.
@@ -175,13 +175,13 @@ The completed system is expected to provide:
 * A foundation for improved reporting and decision-making.
 
 
-# References
+## References
 * Aung, M. M., & Chang, Y. S. (2014). *Traceability in a Food Supply Chain: Safety and Quality Perspectives*.
 * Xu, Y., & Gao, X. (2015). *QR Code-Based Traceability Systems*.
 * Paraforos, D. S., et al. (2016). *Farm Management Information Systems*.
 * Bhatta, G. D., Doppler, W., & KC, K. B. (2009). *Organic Agriculture in Nepal*.
 
 
-# Project
+## Project
 Academic Project – BIM, Tribhuvan University
 Status: Under Development
