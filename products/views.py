@@ -25,6 +25,8 @@ from .forms import (
 import qrcode
 from io import BytesIO
 from django.http import HttpResponse
+from django.contrib import messages
+
 
 def home(request):
     return render(request, 'public/home.html')
@@ -49,6 +51,7 @@ def cooperative_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Cooperative added successfully.')
             return redirect('cooperative_list')
     else:
         form = CooperativeForm()
@@ -69,6 +72,7 @@ def cooperative_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Cooperative updated successfully.')
             return redirect('cooperative_list')
     else:
         form = CooperativeForm(instance=cooperative)
@@ -88,6 +92,7 @@ def cooperative_delete(request, pk):
 
     if request.method == 'POST':
         cooperative.delete()
+        messages.success(request, 'Cooperative deleted successfully.')
         return redirect('cooperative_list')
 
     return render(
@@ -113,6 +118,7 @@ def farmer_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Farmer added successfully.')
             return redirect('farmer_list')
     else:
         form = FarmerForm()
@@ -132,6 +138,7 @@ def farmer_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Farmer updated successfully.')
             return redirect('farmer_list')
     else:
         form = FarmerForm(instance=farmer)
@@ -151,6 +158,7 @@ def farmer_delete(request, pk):
 
     if request.method == 'POST':
         farmer.delete()
+        messages.success(request, 'Farmer deleted successfully.')
         return redirect('farmer_list')
 
     return render(
@@ -177,6 +185,7 @@ def product_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Product added successfully.')
             return redirect('product_list')
     else:
         form = ProductForm()
@@ -196,6 +205,7 @@ def product_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Product updated successfully.')
             return redirect('product_list')
     else:
         form = ProductForm(instance=product)
@@ -215,6 +225,7 @@ def product_delete(request, pk):
 
     if request.method == 'POST':
         product.delete()
+        messages.success(request, 'Product deleted successfully.')
         return redirect('product_list')
 
     return render(
@@ -244,6 +255,7 @@ def delivery_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Delivery added successfully.')
             return redirect('delivery_list')
     else:
         form = DeliveryForm()
@@ -266,6 +278,7 @@ def delivery_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Delivery updated successfully.')
             return redirect('delivery_list')
     else:
         form = DeliveryForm(instance=delivery)
@@ -285,6 +298,7 @@ def delivery_delete(request, pk):
 
     if request.method == 'POST':
         delivery.delete()
+        messages.success(request, 'Delivery deleted successfully.')
         return redirect('delivery_list')
 
     return render(
@@ -314,6 +328,7 @@ def quality_check_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Quality check added successfully.')
             return redirect('quality_check_list')
     else:
         form = QualityCheckForm()
@@ -339,6 +354,7 @@ def quality_check_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Quality check updated successfully.')
             return redirect('quality_check_list')
     else:
         form = QualityCheckForm(
@@ -363,6 +379,7 @@ def quality_check_delete(request, pk):
 
     if request.method == 'POST':
         quality_check.delete()
+        messages.success(request, 'Quality check deleted successfully.')
         return redirect('quality_check_list')
 
     return render(
@@ -392,6 +409,7 @@ def batch_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Batch added successfully.')
             return redirect('batch_list')
     else:
         form = BatchForm()
@@ -414,6 +432,7 @@ def batch_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Batch updated successfully.')
             return redirect('batch_list')
     else:
         form = BatchForm(instance=batch)
@@ -433,6 +452,7 @@ def batch_delete(request, pk):
 
     if request.method == 'POST':
         batch.delete()
+        messages.success(request, 'Batch deleted successfully.')
         return redirect('batch_list')
 
     return render(
@@ -462,6 +482,7 @@ def processing_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Processing record added successfully.')
             return redirect('processing_list')
     else:
         form = ProcessingForm()
@@ -487,6 +508,7 @@ def processing_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Processing record updated successfully.')
             return redirect('processing_list')
     else:
         form = ProcessingForm(
@@ -511,6 +533,7 @@ def processing_delete(request, pk):
 
     if request.method == 'POST':
         processing.delete()
+        messages.success(request, 'Processing record deleted successfully.')
         return redirect('processing_list')
 
     return render(
@@ -539,6 +562,7 @@ def packaging_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Packaging record added successfully.')
             return redirect('packaging_list')
     else:
         form = PackagingForm()
@@ -564,6 +588,7 @@ def packaging_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Packaging record updated successfully.')
             return redirect('packaging_list')
     else:
         form = PackagingForm(
@@ -588,6 +613,7 @@ def packaging_delete(request, pk):
 
     if request.method == 'POST':
         packaging.delete()
+        messages.success(request, 'Packaging record deleted successfully.')
         return redirect('packaging_list')
 
     return render(
@@ -616,6 +642,7 @@ def distribution_create(request):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Distribution record added successfully.')
             return redirect('distribution_list')
     else:
         form = DistributionForm()
@@ -641,6 +668,7 @@ def distribution_update(request, pk):
 
         if form.is_valid():
             form.save()
+            messages.success(request, 'Distribution record updated successfully.')
             return redirect('distribution_list')
     else:
         form = DistributionForm(
@@ -665,6 +693,7 @@ def distribution_delete(request, pk):
 
     if request.method == 'POST':
         distribution.delete()
+        messages.success(request, 'Distribution record deleted successfully.')
         return redirect('distribution_list')
 
     return render(
