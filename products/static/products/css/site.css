@@ -1,0 +1,319 @@
+/* Shared presentation layer for the Agro Products Traceability system. */
+:root {
+    color-scheme: light;
+    --agro-ink: #20322b;
+    --agro-muted: #6f7d75;
+    --agro-green: #276749;
+    --agro-green-deep: #194b36;
+    --agro-green-soft: #e8f2ec;
+    --agro-surface: #ffffff;
+    --agro-page: #f4f7f2;
+    --agro-border: #dfe7df;
+    --agro-danger: #b5473c;
+    --agro-radius: 16px;
+    --agro-shadow: 0 12px 32px rgba(32, 50, 43, 0.07);
+}
+
+html {
+    min-width: 320px;
+    background: var(--agro-page);
+}
+
+body {
+    min-height: 100vh;
+    background:
+        radial-gradient(ellipse at 95% 0%, rgba(218, 235, 220, 0.42), transparent 34rem),
+        var(--agro-page);
+    color: var(--agro-ink);
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+}
+
+.navbar.navbar-dark.bg-dark {
+    min-height: 70px;
+    padding: 0.8rem 0;
+    background: var(--agro-green-deep) !important;
+    box-shadow: 0 5px 18px rgba(25, 75, 54, 0.13);
+}
+
+.navbar > .container-fluid {
+    width: min(100% - 2rem, 1440px);
+    margin-inline: auto;
+    padding-inline: 0;
+}
+
+.navbar-brand {
+    color: #fff !important;
+    font-size: clamp(1.02rem, 2.5vw, 1.25rem);
+    font-weight: 750;
+    letter-spacing: -0.025em;
+    white-space: normal;
+}
+
+.navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.35);
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(221, 241, 226, 0.25);
+}
+
+.navbar .btn-outline-light {
+    border-radius: 999px;
+    font-weight: 650;
+}
+
+main.container {
+    width: min(100% - 2rem, 1320px);
+    max-width: 1320px;
+    padding: 2rem 0 4rem;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: var(--agro-ink);
+    font-weight: 750;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+}
+
+h1 {
+    margin-bottom: 0.65rem;
+    font-size: clamp(1.8rem, 4vw, 2.55rem);
+}
+
+h2 { font-size: clamp(1.35rem, 3vw, 1.8rem); }
+h3 { font-size: clamp(1.12rem, 2.5vw, 1.4rem); }
+
+p.text-muted, .text-muted {
+    color: var(--agro-muted) !important;
+}
+
+a:not(.btn):not(.navbar-brand) {
+    color: var(--agro-green);
+    text-underline-offset: 0.18em;
+}
+
+a:not(.btn):not(.navbar-brand):hover {
+    color: var(--agro-green-deep);
+}
+
+.btn {
+    min-height: 40px;
+    padding: 0.55rem 1rem;
+    border-radius: 10px;
+    font-weight: 650;
+    transition: transform 140ms ease, box-shadow 140ms ease, background-color 140ms ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+.btn:focus-visible, a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+    outline: 3px solid rgba(72, 137, 97, 0.35);
+    outline-offset: 2px;
+}
+
+.btn-dark {
+    border-color: var(--agro-green);
+    background: var(--agro-green);
+    box-shadow: 0 5px 12px rgba(39, 103, 73, 0.12);
+}
+
+.btn-dark:hover, .btn-dark:focus {
+    border-color: var(--agro-green-deep);
+    background: var(--agro-green-deep);
+}
+
+.btn-secondary {
+    border-color: #718078;
+    background: #718078;
+}
+
+.btn-danger {
+    border-color: var(--agro-danger);
+    background: var(--agro-danger);
+}
+
+.card {
+    overflow: hidden;
+    border: 1px solid var(--agro-border);
+    border-radius: var(--agro-radius);
+    background: var(--agro-surface);
+    box-shadow: var(--agro-shadow) !important;
+    transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 18px 38px rgba(32, 50, 43, 0.11) !important;
+}
+
+.card-body {
+    padding: clamp(1.15rem, 3vw, 1.6rem);
+}
+
+.card-title {
+    margin-bottom: 0.65rem;
+    font-size: 1.16rem;
+}
+
+.card-text {
+    color: var(--agro-muted);
+}
+
+.table-responsive {
+    overflow-x: auto;
+    border: 1px solid var(--agro-border);
+    border-radius: var(--agro-radius);
+    background: var(--agro-surface);
+    box-shadow: var(--agro-shadow);
+    -webkit-overflow-scrolling: touch;
+}
+
+.table {
+    min-width: 680px;
+    margin-bottom: 0;
+    color: var(--agro-ink);
+    vertical-align: middle;
+}
+
+.table > :not(caption) > * > * {
+    padding: 0.9rem 1rem;
+    border-bottom-color: var(--agro-border);
+}
+
+.table thead.table-dark th {
+    border-color: var(--agro-green-deep);
+    background: var(--agro-green-deep);
+    color: #fff;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.055em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.table tbody tr:last-child > * { border-bottom: 0; }
+.table-hover > tbody > tr:hover > * { background: #f2f8f3; }
+.table td { overflow-wrap: anywhere; }
+.table td .btn { margin: 0.12rem; }
+
+.alert {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(32, 50, 43, 0.035);
+}
+
+.alert-info {
+    border-color: #c9e2e4;
+    background: #eff8f8;
+    color: #28545a;
+}
+
+.alert-success { border-color: #c8e2d0; }
+.alert-warning { border-color: #f1dfad; }
+.alert-danger { border-color: #ebc9c4; }
+
+/* Django form.as_p output, plus the public batch search form. */
+main form p {
+    margin-bottom: 1.1rem;
+}
+
+main form label {
+    display: inline-block;
+    margin-bottom: 0.38rem;
+    color: #34473d;
+    font-size: 0.92rem;
+    font-weight: 650;
+}
+
+main form input:not([type="checkbox"]):not([type="radio"]),
+main form select,
+main form textarea {
+    display: block;
+    width: 100%;
+    min-height: 44px;
+    padding: 0.65rem 0.8rem;
+    border: 1px solid #ccd8ce;
+    border-radius: 9px;
+    background-color: #fff;
+    color: var(--agro-ink);
+    font: inherit;
+    transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+main form textarea { min-height: 120px; resize: vertical; }
+main form input:focus, main form select:focus, main form textarea:focus {
+    border-color: #75a98a;
+    box-shadow: 0 0 0 0.2rem rgba(39, 103, 73, 0.12);
+}
+
+main form input[type="checkbox"], main form input[type="radio"] {
+    accent-color: var(--agro-green);
+}
+
+main form ul.errorlist {
+    margin: 0.35rem 0 0;
+    padding-left: 1.2rem;
+    color: var(--agro-danger);
+    font-size: 0.88rem;
+}
+
+main form small, main form .helptext {
+    display: block;
+    margin-top: 0.35rem;
+    color: var(--agro-muted);
+}
+
+/* CRUD page headings and actions wrap instead of colliding on narrow screens. */
+main > .d-flex.justify-content-between,
+main > .container > .d-flex.justify-content-between {
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#qr-reader {
+    width: min(100%, 300px) !important;
+    overflow: hidden;
+    border: 1px solid var(--agro-border);
+    border-radius: 12px;
+    background: var(--agro-surface);
+}
+
+#qr-reader video, #qr-reader img { max-width: 100%; }
+#scanner-message { color: var(--agro-danger); }
+
+@media (max-width: 575.98px) {
+    main.container {
+        width: min(100% - 1.25rem, 1320px);
+        padding-top: 1.35rem;
+        padding-bottom: 2.5rem;
+    }
+
+    .navbar > .container-fluid {
+        width: calc(100% - 1.25rem);
+    }
+
+    main > .d-flex.justify-content-between,
+    main > .container > .d-flex.justify-content-between {
+        align-items: flex-start !important;
+    }
+
+    main > .d-flex.justify-content-between > .btn,
+    main > .container > .d-flex.justify-content-between > .btn {
+        width: 100%;
+    }
+
+    .table > :not(caption) > * > * { padding: 0.75rem; }
+    main form .btn { margin-bottom: 0.45rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        scroll-behavior: auto !important;
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}
