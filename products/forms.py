@@ -1,6 +1,6 @@
 from django import forms
 from .models import Cooperative, Farmer, Product, Delivery, QualityCheck, Batch, Processing, Packaging, Distribution
-
+from django.db.models import Q
 
 class CooperativeForm(forms.ModelForm):
     class Meta:
@@ -79,6 +79,12 @@ class BatchForm(forms.ModelForm):
             'status',
             'remarks',
         ]
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        passed = Q(quality_check__status='Passed')
+        if self.instance.pk:
+            passed |= Q(batches=self.instance)
+        self.fields['deliveries'].queryset = Delivery.objects.filter(passed).distinct()
 
 class ProcessingForm(forms.ModelForm):
     class Meta:

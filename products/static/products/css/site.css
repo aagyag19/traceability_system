@@ -1,4 +1,5 @@
 /* Shared presentation layer for the Agro Products Traceability system. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400..800&display=swap');
 :root {
     color-scheme: light;
     --agro-ink: #20322b;
@@ -315,5 +316,307 @@ main > .container > .d-flex.justify-content-between {
         scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* ---------- Homepage ---------- */
+.home-hero,
+.home-section {
+    /* Slightly darker grey than the site default, for readable small text. */
+    --home-muted: #55645c;
+}
+
+/* Hero */
+.home-hero {
+    padding: clamp(2.5rem, 7vw, 4.75rem) clamp(1.25rem, 5vw, 3rem);
+    border: 1px solid var(--agro-border);
+    border-radius: calc(var(--agro-radius) + 8px);
+    background: linear-gradient(135deg, var(--agro-green-soft), #ffffff 70%);
+    box-shadow: var(--agro-shadow);
+    text-align: center;
+}
+
+.home-eyebrow {
+    display: inline-block;
+    margin: 0 0 1.25rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.75);
+    color: var(--agro-green-deep);
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.home-hero h1 {
+    max-width: 17ch;
+    margin: 0 auto 1.15rem;
+    font-size: clamp(2.2rem, 6.2vw, 3.6rem);
+    font-weight: 700;
+    letter-spacing: -0.035em;
+    line-height: 1.08;
+    text-wrap: balance;
+}
+
+.home-lead {
+    max-width: 38rem;
+    margin: 0 auto 2rem;
+    color: var(--home-muted);
+    font-size: clamp(1.02rem, 2.4vw, 1.18rem);
+    line-height: 1.65;
+    text-wrap: balance;
+}
+
+/* Search box: one rounded field with the button inside it. */
+.home-search {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    max-width: 32rem;
+    margin: 0 auto;
+    padding: 0.4rem;
+    border: 1px solid var(--agro-border);
+    border-radius: 14px;
+    background: #ffffff;
+    box-shadow: 0 8px 24px rgba(32, 50, 43, 0.08);
+    transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.home-search:focus-within {
+    border-color: #75a98a;
+    box-shadow:
+        0 0 0 0.22rem rgba(39, 103, 73, 0.14),
+        0 8px 24px rgba(32, 50, 43, 0.08);
+}
+
+/* Beats the generic "main form input" rules from earlier in this file. */
+main form.home-search input[type="text"] {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    min-height: 46px;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    box-shadow: none;
+    outline: none;
+}
+
+.home-search .btn {
+    flex: 0 0 auto;
+    min-height: 46px;
+    margin: 0;
+    padding-inline: 1.25rem;
+    border-radius: 10px;
+    white-space: nowrap;
+}
+
+.home-hint {
+    margin: 1.1rem 0 0;
+    color: var(--home-muted);
+    font-size: 0.92rem;
+    text-wrap: balance;
+}
+
+/* Sections */
+.home-section {
+    margin-top: clamp(3rem, 7vw, 4.5rem);
+}
+
+.home-section > h2 {
+    margin-bottom: 0.5rem;
+    text-align: center;
+    text-wrap: balance;
+}
+
+.home-section-sub {
+    margin: 0 0 2rem;
+    color: var(--home-muted);
+    text-align: center;
+}
+
+/* Feature cards: same padding as the step cards, and no hover lift
+   because they are not clickable. */
+.home-section .card-body {
+    padding: 1.6rem;
+}
+
+.home-section .card-title {
+    margin-bottom: 0.55rem;
+    font-size: 1.15rem;
+}
+
+.home-section .card-title::before {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 3px;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    background: var(--agro-green);
+}
+
+.home-section .card-text {
+    color: var(--home-muted);
+    line-height: 1.6;
+}
+
+.home-section .card:hover {
+    transform: none;
+    box-shadow: var(--agro-shadow) !important;
+}
+
+/* Journey: a compact list on phones and tablets, five columns on desktop. */
+.home-steps {
+    display: grid;
+    gap: 0.85rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: step;
+}
+
+.home-steps li {
+    display: grid;
+    grid-template-columns: 2.5rem 1fr;
+    column-gap: 1rem;
+    align-items: start;
+    padding: 1.15rem 1.25rem;
+    border: 1px solid var(--agro-border);
+    border-radius: var(--agro-radius);
+    background: var(--agro-surface);
+    box-shadow: var(--agro-shadow);
+    counter-increment: step;
+}
+
+.home-steps li::before {
+    content: counter(step);
+    grid-row: 1 / span 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 50%;
+    background: var(--agro-green);
+    color: #ffffff;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.home-steps h3 {
+    margin: 0.1rem 0 0.2rem;
+    font-size: 1.05rem;
+}
+
+.home-steps p {
+    margin: 0;
+    color: var(--home-muted);
+    font-size: 0.94rem;
+    line-height: 1.55;
+}
+
+@media (min-width: 992px) {
+    .home-steps {
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1rem;
+    }
+
+    .home-steps li {
+        display: block;
+        padding: 1.4rem 1.2rem 1.5rem;
+    }
+
+    .home-steps li::before {
+        margin-bottom: 0.9rem;
+    }
+
+    .home-steps h3 {
+        margin-top: 0;
+    }
+}
+
+/* Staff band: centred on phones, text left and button right on wider screens. */
+.home-staff {
+    display: grid;
+    gap: 0.35rem;
+    justify-items: center;
+    padding: clamp(2rem, 5vw, 3rem) clamp(1.25rem, 5vw, 3rem);
+    border-radius: calc(var(--agro-radius) + 8px);
+    background: var(--agro-green-deep);
+    color: #ffffff;
+    text-align: center;
+}
+
+.home-staff h2 {
+    margin: 0;
+    color: #ffffff;
+    text-align: inherit;
+}
+
+.home-staff p {
+    max-width: 34rem;
+    margin: 0 0 1.1rem;
+    color: rgba(255, 255, 255, 0.84);
+    text-wrap: balance;
+}
+
+.home-staff .btn-light {
+    color: var(--agro-green-deep);
+}
+
+@media (min-width: 768px) {
+    .home-staff {
+        grid-template-columns: 1fr auto;
+        column-gap: 2.5rem;
+        justify-items: start;
+        align-items: center;
+        text-align: left;
+    }
+
+    .home-staff p {
+        margin-bottom: 0;
+    }
+
+    .home-staff .btn-light {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        align-self: center;
+        justify-self: end;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .home-eyebrow {
+        padding: 0.35rem 0.75rem;
+        font-size: 0.7rem;
+        letter-spacing: 0.03em;
+    }
+
+    .home-section .card-body {
+        padding: 1.3rem;
+    }
+}
+
+/* Narrow phones: field on top, full-width button underneath, so the
+   placeholder text is never cut off. */
+@media (max-width: 479.98px) {
+    .home-search {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+        padding: 0.5rem;
+    }
+
+    main form.home-search input[type="text"] {
+        flex: 0 0 auto;
+        border: 1px solid var(--agro-border);
+        background: var(--agro-page);
+    }
+
+    .home-search .btn {
+        width: 100%;
     }
 }

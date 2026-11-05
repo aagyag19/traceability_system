@@ -182,40 +182,16 @@
 
         <h2>Quality Check</h2>
 
-        {% if quality_check %}
-
-            <p>
-                <strong>Quality Grade:</strong>
-                {{ quality_check.get_quality_grade_display }}
-            </p>
-
-            <p>
-                <strong>Moisture:</strong>
-                {{ quality_check.moisture }}
-            </p>
-
-            <p>
-                <strong>Quantity Accepted:</strong>
-                {{ quality_check.quantity_accepted }}
-            </p>
-
-            <p>
-                <strong>Status:</strong>
-                {{ quality_check.get_status_display }}
-            </p>
-
-            <p>
-                <strong>Check Date:</strong>
-                {{ quality_check.check_date }}
-            </p>
-
-        {% else %}
-
-            <p>
-                Quality check information is not available.
-            </p>
-
-        {% endif %}
+        {% for quality_check in quality_checks %}
+            <p><strong>Farmer:</strong> {{ quality_check.delivery.farmer.name }}</p>
+            <p><strong>Quality Grade:</strong> {{ quality_check.get_quality_grade_display }}</p>
+            <p><strong>Moisture:</strong> {{ quality_check.moisture }}</p>
+            <p><strong>Quantity Accepted:</strong> {{ quality_check.quantity_accepted }}</p>
+            <p><strong>Status:</strong> {{ quality_check.get_status_display }}</p>
+            <p><strong>Check Date:</strong> {{ quality_check.check_date }}</p>
+        {% empty %}
+            <p>Quality check information is not available.</p>
+        {% endfor %}
 
 
         <hr>

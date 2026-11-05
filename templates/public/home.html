@@ -4,27 +4,108 @@
 
 {% block content %}
 
-<div class="container">
+<!-- Hero with quick batch search -->
+<section class="home-hero">
+    <p class="home-eyebrow">Agricultural cooperatives in Nepal</p>
 
-    <h1>Agro Products Traceability System</h1>
+    <h1>Know where your food comes from</h1>
 
-    <p>
-        Verify the origin and journey of agricultural products.
+    <p class="home-lead">
+        Follow an agro product from the farmer's field to the package in your
+        hands. Enter the batch number printed on the pack, or scan its QR code.
     </p>
 
-    <a href="{% url 'verify_batch' %}" class="btn btn-dark">
-        Verify a Product
-    </a>
+    <a href="{% url 'verify_batch' %}" class="btn btn-dark btn-lg">Verify a product</a>
+</section>
 
-    <hr>
 
+<!-- Why it matters -->
+<section class="home-section">
+    <div class="row g-3">
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Know your farmer</h3>
+                    <p class="card-text">
+                        See which farmers and which cooperative grew the
+                        produce in your pack, and when it was delivered.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Quality you can check</h3>
+                    <p class="card-text">
+                        Every delivery is inspected and graded, and the result
+                        is recorded before it goes into a batch.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h3 class="card-title">Scan and see</h3>
+                    <p class="card-text">
+                        Each batch has its own QR code. Scan it to see the
+                        full journey, from farm to packaging and delivery.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- The journey -->
+<section class="home-section">
+    <h2>The journey of every batch</h2>
+    <p class="home-section-sub">Five steps, all recorded by the cooperative.</p>
+
+    <ol class="home-steps">
+        <li>
+            <h3>Farm</h3>
+            <p>Farmers register with their cooperative and deliver their produce.</p>
+        </li>
+        <li>
+            <h3>Quality check</h3>
+            <p>Each delivery is inspected, graded and approved or rejected.</p>
+        </li>
+        <li>
+            <h3>Batch</h3>
+            <p>Approved produce is grouped into a batch with its own number.</p>
+        </li>
+        <li>
+            <h3>Process and pack</h3>
+            <p>Processing and packaging are logged, with who did them and when.</p>
+        </li>
+        <li>
+            <h3>Your table</h3>
+            <p>The QR code on the pack opens the whole story in seconds.</p>
+        </li>
+    </ol>
+</section>
+
+
+<!-- Staff -->
+<section class="home-section home-staff">
+    <h2>Run a cooperative?</h2>
     <p>
-        Are you a cooperative administrator?
-        <a href="{% url 'login' %}">
-            Admin Login
-        </a>
+        Manage farmers, deliveries, quality checks, batches and QR codes
+        in one place.
     </p>
 
-</div>
+    {% if user.is_authenticated %}
+        <a href="{% url 'dashboard' %}" class="btn btn-light">Go to dashboard</a>
+    {% else %}
+        <a href="{% url 'login' %}" class="btn btn-light">Staff login</a>
+    {% endif %}
+</section>
 
 {% endblock %}

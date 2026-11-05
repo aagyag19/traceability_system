@@ -16,7 +16,7 @@ class Cooperative(models.Model):
 class Farmer(models.Model):
     cooperative = models.ForeignKey(
         Cooperative,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='farmers'
     )
     name = models.CharField(max_length=150)
@@ -67,12 +67,12 @@ class Product(models.Model):
 class Delivery(models.Model):
     farmer = models.ForeignKey(
         Farmer,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='deliveries'
     )
     product = models.ForeignKey(
         Product,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='deliveries'
     )
     delivery_date = models.DateField()
@@ -97,7 +97,7 @@ class Delivery(models.Model):
 class QualityCheck(models.Model):
     delivery = models.OneToOneField(
         Delivery,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='quality_check'
     )
     checked_by = models.CharField(max_length=150)
@@ -139,7 +139,7 @@ class Batch(models.Model):
     batch_number = models.CharField(max_length=50, unique=True)
     product = models.ForeignKey(
         Product,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='batches'
     )
     deliveries = models.ManyToManyField(
@@ -178,7 +178,7 @@ class Batch(models.Model):
 class Processing(models.Model):
     batch = models.OneToOneField(
         Batch,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='processing'
     )
     started_at = models.DateTimeField(null=True, blank=True)
@@ -203,7 +203,7 @@ class Processing(models.Model):
 class Packaging(models.Model):
     batch = models.OneToOneField(
         Batch,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='packaging'
     )
     started_at = models.DateTimeField(null=True, blank=True)
@@ -245,7 +245,7 @@ class Packaging(models.Model):
 class Distribution(models.Model):
     batch = models.ForeignKey(
         Batch,
-        on_delete=models.CASCADE,
+        on_delete=models.PROTECT,
         related_name='distributions'
     )
     recipient_name = models.CharField(max_length=150)

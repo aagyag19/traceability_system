@@ -1,4 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from config import settings
+from urllib.parse import quote
 from .models import(
      Cooperative, 
      Farmer, 
@@ -26,6 +28,19 @@ import qrcode
 from io import BytesIO
 from django.http import HttpResponse
 from django.contrib import messages
+from django.db.models import ProtectedError
+
+
+def safe_delete(request, obj, label):
+    try:
+        obj.delete()
+        messages.success(request, f'{label} deleted successfully.')
+    except ProtectedError:
+        messages.error(
+            request,
+            f'This {label.lower()} cannot be deleted because other records depend on it. '
+            'Delete or change those records first.'
+        )
 
 
 def home(request):
@@ -91,8 +106,7 @@ def cooperative_delete(request, pk):
     cooperative = Cooperative.objects.get(pk=pk)
 
     if request.method == 'POST':
-        cooperative.delete()
-        messages.success(request, 'Cooperative deleted successfully.')
+        safe_delete(request, cooperative, 'Cooperative')
         return redirect('cooperative_list')
 
     return render(
@@ -157,8 +171,7 @@ def farmer_delete(request, pk):
     farmer = Farmer.objects.get(pk=pk)
 
     if request.method == 'POST':
-        farmer.delete()
-        messages.success(request, 'Farmer deleted successfully.')
+        safe_delete(request, farmer, 'Farmer')
         return redirect('farmer_list')
 
     return render(
@@ -224,8 +237,7 @@ def product_delete(request, pk):
     product = get_object_or_404(Product, pk=pk)
 
     if request.method == 'POST':
-        product.delete()
-        messages.success(request, 'Product deleted successfully.')
+        safe_delete(request, product, 'Product')
         return redirect('product_list')
 
     return render(
@@ -297,8 +309,11 @@ def delivery_delete(request, pk):
     delivery = get_object_or_404(Delivery, pk=pk)
 
     if request.method == 'POST':
-        delivery.delete()
-        messages.success(request, 'Delivery deleted successfully.')
+        if delivery.batches.exists():
+            messages.error(request, 'This delivery is used in a batch and cannot be deleted.')
+            return redirect('delivery_list')
+
+        safe_delete(request, delivery, 'Delivery')
         return redirect('delivery_list')
 
     return render(
@@ -378,8 +393,7 @@ def quality_check_delete(request, pk):
     )
 
     if request.method == 'POST':
-        quality_check.delete()
-        messages.success(request, 'Quality check deleted successfully.')
+        safe_delete(request, quality_check, 'Quality Check')
         return redirect('quality_check_list')
 
     return render(
@@ -451,8 +465,7 @@ def batch_delete(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
 
     if request.method == 'POST':
-        batch.delete()
-        messages.success(request, 'Batch deleted successfully.')
+        safe_delete(request, batch, 'Batch')
         return redirect('batch_list')
 
     return render(
@@ -532,8 +545,7 @@ def processing_delete(request, pk):
     )
 
     if request.method == 'POST':
-        processing.delete()
-        messages.success(request, 'Processing record deleted successfully.')
+        safe_delete(request, processing, 'Processing Record')
         return redirect('processing_list')
 
     return render(
@@ -612,8 +624,7 @@ def packaging_delete(request, pk):
     )
 
     if request.method == 'POST':
-        packaging.delete()
-        messages.success(request, 'Packaging record deleted successfully.')
+        safe_delete(request, packaging, 'Packaging')
         return redirect('packaging_list')
 
     return render(
@@ -692,8 +703,7 @@ def distribution_delete(request, pk):
     )
 
     if request.method == 'POST':
-        distribution.delete()
-        messages.success(request, 'Distribution record deleted successfully.')
+        safe_delete(request, distribution, 'Distribution')
         return redirect('distribution_list')
 
     return render(
@@ -719,19 +729,16 @@ def verify_batch(request):
         except Batch.DoesNotExist:
             batch = None
 
-    quality_check = None
+    quality_checks = []
     processing = None
     packaging = None
     distributions = []
 
     if batch:
         # Get quality check from the deliveries used in this batch
-        for delivery in batch.deliveries.all():
-            try:
-                quality_check = delivery.quality_check
-                break
-            except QualityCheck.DoesNotExist:
-                continue
+        quality_checks = QualityCheck.objects.filter(
+            delivery__in=batch.deliveries.all()
+        )
 
         # Get processing record
         try:
@@ -754,7 +761,7 @@ def verify_batch(request):
         {
             'batch': batch,
             'batch_number': batch_number,
-            'quality_check': quality_check,
+            'quality_checks': quality_checks,
             'processing': processing,
             'packaging': packaging,
             'distributions': distributions,
@@ -765,9 +772,11 @@ def verify_batch(request):
 def batch_qr(request, pk):
     batch = get_object_or_404(Batch, pk=pk)
 
-    verification_url = request.build_absolute_uri(
-        f'/verify/?batch_number={batch.batch_number}'
-    )
+    path = f'/verify/?batch_number={quote(batch.batch_number)}'
+    if settings.SITE_BASE_URL:
+        verification_url = settings.SITE_BASE_URL + path
+    else:
+        verification_url = request.build_absolute_uri(path)
 
     qr = qrcode.make(verification_url)
 
