@@ -197,9 +197,6 @@ a:not(.btn):not(.navbar-brand):hover {
 }
 
 .table tbody tr:last-child > * { border-bottom: 0; }
-.table-hover > tbody > tr:hover > * { background: #f2f8f3; }
-.table td { overflow-wrap: anywhere; }
-.table td .btn { margin: 0.12rem; }
 
 .alert {
     border: 1px solid transparent;
@@ -316,6 +313,608 @@ main > .container > .d-flex.justify-content-between {
         scroll-behavior: auto !important;
         animation-duration: 0.01ms !important;
         transition-duration: 0.01ms !important;
+    }
+}
+
+/* ---------- App pages: dashboard, lists, forms, delete, login, verify ---------- */
+:root {
+    --agro-label: #55645c;
+}
+
+/* Page titles are a little smaller than the public homepage headline. */
+main h1 {
+    font-size: clamp(1.65rem, 3.6vw, 2.15rem);
+    letter-spacing: -0.03em;
+}
+
+/* A .container inside <main> (login, verify) must not shrink the page twice. */
+main .container {
+    max-width: none;
+    padding-inline: 0;
+}
+
+/* ----- Page header: title on the left, "Add" button on the right ----- */
+main > .d-flex.justify-content-between h1 {
+    margin-bottom: 0.25rem;
+}
+
+main > .d-flex.justify-content-between p {
+    margin: 0;
+}
+
+main > .d-flex.justify-content-between > .btn-dark::before {
+    content: "+";
+    margin-right: 0.45rem;
+    font-size: 1.15em;
+    font-weight: 700;
+    line-height: 1;
+}
+
+/* ----- Cards (dashboard): buttons line up at the bottom ----- */
+.card:hover {
+    transform: none;
+    border-color: #cddccf;
+    box-shadow: var(--agro-shadow) !important;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.card-body .btn {
+    margin-top: auto;
+}
+
+.card-text {
+    margin-bottom: 1.35rem;
+}
+
+.card-title::before {
+    content: "";
+    display: block;
+    width: 2rem;
+    height: 3px;
+    margin-bottom: 1rem;
+    border-radius: 3px;
+    background: var(--agro-green);
+}
+
+/* ----- Messages ----- */
+main > .alert {
+    margin-bottom: 1.25rem;
+    padding: 0.85rem 1.1rem;
+    font-weight: 550;
+}
+
+.alert-success {
+    border-left: 4px solid var(--agro-green);
+    background: #eef7f1;
+    color: #1d5a39;
+}
+
+.alert-danger {
+    border-left: 4px solid var(--agro-danger);
+    background: #fcefed;
+    color: #8d332a;
+}
+
+.alert-warning {
+    border-left: 4px solid #d9a431;
+    background: #fff8e6;
+    color: #7a5a12;
+}
+
+/* "Nothing here yet" messages become a calm empty state. */
+.alert-info {
+    padding: 2.5rem 1.5rem;
+    border: 1px dashed #bfd3c4;
+    border-radius: var(--agro-radius);
+    background: rgba(255, 255, 255, 0.7);
+    color: var(--agro-muted);
+    text-align: center;
+    box-shadow: none;
+}
+
+/* ----- Tables ----- */
+.table {
+    --bs-table-bg: transparent;
+    --bs-table-hover-bg: #f3f8f4;
+    --bs-table-hover-color: var(--agro-ink);
+    font-size: 0.93rem;
+}
+
+/* Soft header, no heavy vertical lines, no dark line along the top. */
+.table-responsive .table > :not(caption) > * {
+    border-width: 0;
+}
+
+.table-responsive .table > :not(caption) > * > * {
+    padding: 0.9rem 0.9rem;
+    border-width: 0 0 1px;
+    border-color: var(--agro-border);
+}
+
+.table thead.table-dark th {
+    background: #eef4ef;
+    color: #44594d;
+    border-color: var(--agro-border);
+    font-size: 0.74rem;
+    white-space: normal;
+    vertical-align: bottom;
+}
+
+.table thead.table-dark th:last-child {
+    white-space: nowrap;
+}
+
+/* Wide tables scroll sideways inside their card; a soft shadow on the edge shows there is more. */
+.table-responsive {
+    background:
+        linear-gradient(to right, #ffffff 30%, rgba(255, 255, 255, 0)) left center / 2.5rem 100% no-repeat local,
+        linear-gradient(to left, #ffffff 30%, rgba(255, 255, 255, 0)) right center / 2.5rem 100% no-repeat local,
+        linear-gradient(to right, rgba(32, 50, 43, 0.16), rgba(32, 50, 43, 0)) left center / 0.9rem 100% no-repeat scroll,
+        linear-gradient(to left, rgba(32, 50, 43, 0.16), rgba(32, 50, 43, 0)) right center / 0.9rem 100% no-repeat scroll,
+        var(--agro-surface);
+}
+
+@media (max-width: 767.98px) {
+    .table thead.table-dark th {
+        white-space: nowrap;
+    }
+}
+
+/* Whole words only: columns grow or the table scrolls, words never split. */
+.table td {
+    overflow-wrap: normal;
+    word-break: normal;
+    line-height: 1.45;
+}
+
+.table td:first-child {
+    font-weight: 650;
+    white-space: nowrap;
+}
+
+.table td:last-child,
+.table th:last-child {
+    white-space: nowrap;
+}
+
+/* Edit / Delete / QR buttons: compact and side by side. */
+.table td .btn {
+    min-height: 34px;
+    margin: 0 0.3rem 0 0;
+    padding: 0.3rem 0.8rem;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    box-shadow: none;
+}
+
+.table td .btn:hover {
+    transform: none;
+}
+
+.table td .btn-secondary {
+    border: 1px solid #cfdcd2;
+    background: #ffffff;
+    color: var(--agro-green-deep);
+}
+
+.table td .btn-secondary:hover {
+    border-color: #b6cdbb;
+    background: var(--agro-green-soft);
+    color: var(--agro-green-deep);
+}
+
+.table td .btn-danger {
+    border: 1px solid #ecc9c4;
+    background: #ffffff;
+    color: var(--agro-danger);
+}
+
+.table td .btn-danger:hover {
+    border-color: #e0aaa3;
+    background: #fbeceb;
+    color: #9a362b;
+}
+
+.table td .btn-dark {
+    border: 1px solid #b9d4c1;
+    background: var(--agro-green-soft);
+    color: var(--agro-green-deep);
+}
+
+.table td .btn-dark:hover {
+    background: #d9eadf;
+    color: var(--agro-green-deep);
+}
+
+/* ----- Add / edit forms: one white card, two fields per row ----- */
+main > form:has(> p) {
+    display: flex;
+    flex-wrap: wrap;
+    column-gap: 1.25rem;
+    max-width: 880px;
+    padding: clamp(1.25rem, 3.5vw, 2rem);
+    border: 1px solid var(--agro-border);
+    border-radius: calc(var(--agro-radius) + 4px);
+    background: var(--agro-surface);
+    box-shadow: var(--agro-shadow);
+}
+
+main > form:has(> p) > p {
+    flex: 0 1 calc(50% - 0.625rem);
+    min-width: 0;
+    margin-bottom: 1.2rem;
+}
+
+/* Long text boxes and multi-selects take the full row. */
+main > form:has(> p) > p:has(textarea),
+main > form:has(> p) > p:has(select[multiple]) {
+    flex-basis: 100%;
+}
+
+/* Django puts each error list between the fields, so when a form has errors it
+   becomes one clean column with the message in red above its field. */
+main > form:has(> p) > ul.errorlist {
+    flex-basis: 100%;
+    margin: 0 0 0.4rem;
+    padding: 0;
+    list-style: none;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
+
+main > form:has(> p):has(> ul.errorlist) > p {
+    flex-basis: 100%;
+}
+
+main > form > ul.errorlist + p input:not([type="checkbox"]):not([type="radio"]),
+main > form > ul.errorlist + p select,
+main > form > ul.errorlist + p textarea {
+    border-color: #d98a82;
+    background-color: #fffafa;
+}
+
+/* A line between the fields and the buttons (also forces the buttons onto a new row). */
+main > form:has(> p)::after {
+    content: "";
+    order: 1;
+    flex-basis: 100%;
+    height: 0;
+    margin: 0.15rem 0 1.4rem;
+    border-top: 1px solid var(--agro-border);
+}
+
+/* The form's column gap already separates the buttons; pull them closer. */
+main > form:has(> p) > .btn {
+    order: 2;
+    margin: 0 -0.7rem 0 0;
+}
+
+/* Text boxes and drop-downs share one height. */
+main form input:not([type="checkbox"]):not([type="radio"]),
+main form select:not([multiple]) {
+    height: 46px;
+    min-height: 46px;
+    padding-block: 0.45rem;
+}
+
+main form textarea,
+main form select[multiple] {
+    height: auto;
+}
+
+main form select[multiple] {
+    min-height: 9.5rem;
+    padding: 0.4rem;
+}
+
+main form select[multiple] option {
+    padding: 0.3rem 0.55rem;
+    border-radius: 6px;
+}
+
+/* The soft green ring is enough; no second outline on top of it. */
+main form input:focus-visible,
+main form select:focus-visible,
+main form textarea:focus-visible {
+    outline: none;
+}
+
+/* ----- Delete confirmation: a small warning card ----- */
+main > h1:has(~ form > .btn-danger),
+main > h1:has(~ form > .btn-danger) ~ p,
+main > h1:has(~ form > .btn-danger) ~ form {
+    max-width: 580px;
+    margin: 0;
+    padding-inline: clamp(1.25rem, 4vw, 2rem);
+    border-inline: 1px solid var(--agro-border);
+    background: var(--agro-surface);
+}
+
+main > h1:has(~ form > .btn-danger) {
+    padding-top: 1.85rem;
+    padding-bottom: 0.7rem;
+    border-top: 1px solid var(--agro-border);
+    border-radius: calc(var(--agro-radius) + 4px) calc(var(--agro-radius) + 4px) 0 0;
+    font-size: clamp(1.5rem, 3.4vw, 1.9rem);
+}
+
+main > h1:has(~ form > .btn-danger)::before {
+    content: "Confirm deletion";
+    display: block;
+    width: max-content;
+    margin-bottom: 0.85rem;
+    padding: 0.28rem 0.75rem;
+    border-radius: 999px;
+    background: #fbeceb;
+    color: #8d332a;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+main > h1:has(~ form > .btn-danger) ~ p {
+    padding-bottom: 0.85rem;
+}
+
+main > h1:has(~ form > .btn-danger) ~ form {
+    padding-top: 1.25rem;
+    padding-bottom: 1.75rem;
+    border-top: 1px solid var(--agro-border);
+    border-bottom: 1px solid var(--agro-border);
+    border-radius: 0 0 calc(var(--agro-radius) + 4px) calc(var(--agro-radius) + 4px);
+    box-shadow: var(--agro-shadow);
+}
+
+/* ----- Login: a centred card ----- */
+main > .container:has(> h1:first-child + form) {
+    max-width: 440px;
+    margin: clamp(0.5rem, 5vh, 3rem) auto 0;
+}
+
+main > .container:has(> h1:first-child + form) > h1 {
+    margin-bottom: 1.25rem;
+    font-size: 1.9rem;
+    text-align: center;
+}
+
+main > .container:has(> h1:first-child + form) > form {
+    padding: clamp(1.4rem, 4vw, 2rem);
+    border: 1px solid var(--agro-border);
+    border-radius: calc(var(--agro-radius) + 4px);
+    background: var(--agro-surface);
+    box-shadow: var(--agro-shadow);
+}
+
+main > .container:has(> h1:first-child + form) > form .btn {
+    width: 100%;
+    margin-top: 0.35rem;
+}
+
+/* ----- Verify page: one readable card with label / value rows ----- */
+main > .container:has(#qr-reader) {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: clamp(1.25rem, 4vw, 2.5rem);
+    border: 1px solid var(--agro-border);
+    border-radius: calc(var(--agro-radius) + 4px);
+    background: var(--agro-surface);
+    box-shadow: var(--agro-shadow);
+}
+
+.container:has(#qr-reader) > h1 {
+    margin-bottom: 0.4rem;
+}
+
+.container:has(#qr-reader) > h1 + p {
+    margin-bottom: 1.75rem;
+    color: var(--agro-muted);
+}
+
+.container:has(#qr-reader) hr {
+    margin: 1.9rem 0;
+    border: 0;
+    border-top: 1px solid var(--agro-border);
+    opacity: 1;
+}
+
+.container:has(#qr-reader) > h2 {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin: 0 0 0.9rem;
+    font-size: 1.3rem;
+}
+
+.container:has(#qr-reader) > h2::before {
+    content: "";
+    flex: 0 0 auto;
+    width: 5px;
+    height: 1.15em;
+    border-radius: 3px;
+    background: var(--agro-green);
+}
+
+.container:has(#qr-reader) > h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.05rem;
+}
+
+/* "Delivery" / "Distribution Record" headings inside a section. */
+.container:has(#qr-reader) > h3:has(+ p > strong:first-child) {
+    margin: 1.3rem 0 0.35rem;
+    color: var(--agro-green);
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.container:has(#qr-reader) > h2 + h3:has(+ p > strong:first-child) {
+    margin-top: 0;
+}
+
+.container:has(#qr-reader) > p:has(> strong:first-child) {
+    display: grid;
+    grid-template-columns: minmax(7.5rem, 11.5rem) minmax(0, 1fr);
+    column-gap: 1rem;
+    margin: 0;
+    padding: 0.62rem 0;
+    border-bottom: 1px solid #edf2ee;
+}
+
+.container:has(#qr-reader) > p:has(> strong:first-child) > strong {
+    color: var(--agro-label);
+    font-weight: 600;
+}
+
+.container:has(#qr-reader) > p:has(> strong:first-child):has(+ hr),
+.container:has(#qr-reader) > p:has(> strong:first-child):last-child {
+    border-bottom: 0;
+}
+
+/* Search box: field and button on one row. */
+.container:has(#qr-reader) > form {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+}
+
+.container:has(#qr-reader) > form input[type="text"] {
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+}
+
+.container:has(#qr-reader) > form .btn {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+@media (max-width: 575.98px) {
+    .container:has(#qr-reader) > p:has(> strong:first-child) {
+        grid-template-columns: 1fr;
+        row-gap: 0.1rem;
+    }
+
+    .container:has(#qr-reader) > p:has(> strong:first-child) > strong {
+        font-size: 0.82rem;
+    }
+
+    main > form:has(> p) > p {
+        flex-basis: 100%;
+    }
+
+    main > form:has(> p) > .btn {
+        flex: 1 1 auto;
+        margin-right: 0;
+    }
+
+    /* Keep the dashboard from scrolling sideways by a couple of pixels. */
+    main .row {
+        --bs-gutter-x: 1rem;
+    }
+}
+
+
+/* ----- Phones: table rows become stacked cards (labels come from the header via a tiny script in base.html) ----- */
+@media (max-width: 767.98px) {
+    .table-responsive:has(> .table.stack) {
+        overflow: visible;
+        background: none;
+    }
+
+    .table-responsive .table.stack {
+        min-width: 0;
+    }
+
+    .table.stack,
+    .table.stack tbody,
+    .table.stack tr,
+    .table.stack td {
+        display: block;
+        width: 100%;
+    }
+
+    .table.stack thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+    }
+
+    .table-responsive .table.stack tr {
+        margin-bottom: 1rem;
+        padding: 0.35rem 1rem 0.5rem;
+        border: 1px solid var(--agro-border);
+        border-radius: var(--agro-radius);
+        background: var(--agro-surface);
+        box-shadow: var(--agro-shadow);
+    }
+
+    .table-responsive .table.stack td {
+        display: grid;
+        grid-template-columns: minmax(6.5rem, 38%) 1fr;
+        column-gap: 0.75rem;
+        align-items: baseline;
+        padding: 0.6rem 0;
+        border-width: 0 0 1px;
+        border-style: dashed;
+        border-color: var(--agro-border);
+        white-space: normal;
+        text-align: left;
+    }
+
+    .table-responsive .table.stack td::before {
+        content: attr(data-label);
+        color: var(--agro-label);
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+    }
+
+    .table-responsive .table.stack td:empty {
+        display: none;
+    }
+
+    /* First cell acts as the card title. */
+    .table-responsive .table.stack td:first-child {
+        display: block;
+        padding: 0.75rem 0 0.6rem;
+        border-bottom-style: solid;
+        font-size: 1.02rem;
+        white-space: normal;
+    }
+
+    .table-responsive .table.stack td:first-child::before {
+        display: block;
+        margin-bottom: 0.1rem;
+    }
+
+    /* Action buttons: full row, no label. */
+    .table-responsive .table.stack td:last-child {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        padding: 0.75rem 0 0.25rem;
+        border-bottom: 0;
+        white-space: normal;
+    }
+
+    .table-responsive .table.stack td:last-child::before {
+        display: none;
+    }
+
+    .table.stack td .btn {
+        margin: 0;
+        min-height: 40px;
+        padding: 0.45rem 1.1rem;
     }
 }
 
