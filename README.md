@@ -4,7 +4,7 @@ The Product Management and Traceability Information System for Agricultural Coop
 
 The system centralizes information related to farmers, produce deliveries, quality inspections, product batches, processing, and packaging. It also allows consumers to access product traceability information using batch numbers or QR codes.
 
-The project is being developed as a sixth-semester academic project using the Incremental Development Model.
+The project was developed as a sixth-semester academic project using the Incremental Development Model.
 
 ## Problem Statement
 Agricultural cooperatives may face difficulties in maintaining accurate and well-organized records throughout the product lifecycle. Manual record keeping and fragmented information can make it difficult to trace products and provide consumers with clear information about their origin.
@@ -36,13 +36,14 @@ This project addresses these challenges by providing a centralized web-based sys
 * Store important batch details such as product information and dates.
 * Maintain relationships between batches and their source records.
 
-### Processing & Packaging
+### Processing, Packaging & Distribution
 * Record processing activities associated with product batches.
 * Maintain packaging information for traceability.
+* Record distribution of batches to recipients and destinations.
 
 ### QR Code Traceability
 * Generate a unique QR code for each product batch.
-* Scan QR codes using a device camera.
+* Scan the QR code with a phone camera to open the batch's verification page.
 * Retrieve the corresponding batch information after scanning.
 
 ### Consumer Verification
@@ -57,6 +58,8 @@ This project addresses these challenges by providing a centralized web-based sys
 
 ## System Workflow
 ```text
+Cooperative
+↓
 Farmer
 ↓
 Produce Delivery
@@ -68,6 +71,8 @@ Batch Creation
 Processing
 ↓
 Packaging
+↓
+Distribution
 ↓
 QR Code Generation
 ↓
@@ -99,40 +104,32 @@ The system primarily allows cooperative staff and administrators to manage recor
 Consumers do not need to create an account. They can access relevant product information through the public verification interface using a batch number or QR code.
 
 ## Project Structure
-The project follows the standard Django project structure.
-
 ```text
 sixth_sem_project/
-
 │
 ├── manage.py
 ├── README.md
 ├── requirements.txt
+├── .env.example          # copy to .env and fill in your values
 │
-├── project/
-│   ├── settings.py
-│   ├── urls.py
-│   └── ...
+├── config/               # project settings, root URLs, WSGI/ASGI
 │
-├── app/
-│   ├── models.py
+├── products/             # main app
+│   ├── models.py         # Cooperative, Farmer, Product, Delivery, QualityCheck,
+│   │                     # Batch, Processing, Packaging, Distribution
 │   ├── views.py
 │   ├── urls.py
-│   └── ...
+│   └── static/products/css/site.css
 │
-├── templates/
-├── static/
-└── ...
+└── templates/            # HTML templates (base, dashboard, lists, forms, public verify page)
 ```
-
-The structure above is a simplified representation and may change as development progresses.
 
 ## Installation and Setup
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd sixth_sem_project
+git clone https://github.com/aagyag19/traceability_system.git
+cd traceability_system
 ```
 
 ### 2. Create a virtual environment
@@ -155,15 +152,28 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### 5. Configure the database
-Create a MySQL database and configure the database connection in the Django project's settings.
+### 5. Create the MySQL database
+Log in to MySQL and create an empty database:
 
-### 6. Apply migrations
+```sql
+CREATE DATABASE agro_products CHARACTER SET utf8mb4;
+```
+
+### 6. Configure environment variables
+Copy `.env.example` to `.env` and fill in your values.
+The `.env` file holds secrets and must never be committed to Git.
+
+### 7. Apply migrations
 ```bash
 python manage.py migrate
 ```
 
-### 7. Start the development server
+### 8. Create a staff account
+```bash
+python manage.py createsuperuser
+```
+
+### 9. Start the development server
 ```bash
 python manage.py runserver
 ```
@@ -171,17 +181,49 @@ python manage.py runserver
 Then open the application in your browser:
 http://127.0.0.1:8000/
 
+Staff log in at `/login/`. The public verification page is at `/verify/`.
+
+## Using QR codes on a phone
+A QR code stores the address of the batch's verification page, so the phone must be able to reach the server.
+
+1. Connect the computer and the phone to the same Wi-Fi network (or put the computer on the phone's hotspot).
+2. Find the computer's IP address (`ipconfig` on Windows).
+3. In `.env`, add that IP to `DJANGO_ALLOWED_HOSTS` and set `SITE_BASE_URL=http://<ip>:8000`.
+4. Allow port 8000 through the firewall and start the server with:
+   ```bash
+   python manage.py runserver 0.0.0.0:8000
+   ```
+5. Open a batch's QR code in the app, then scan it with the phone's camera app and tap the link.
+
+QR codes contain the address that was set when they were generated. If the IP or `SITE_BASE_URL` changes, generate and print the QR codes again.
+
+For QR codes that work from anywhere, deploy the application to an online host and set `SITE_BASE_URL` to its public HTTPS address. Browsers only allow the in-page camera scanner on HTTPS, so on a local HTTP address use the phone's camera app instead.
+
 ## Screenshots
-Screenshots of the system will be added here as development progresses.
-Planned screenshots include:
-* Login page
-* Dashboard
-* Farmer management
-* Batch management
-* Batch details
-* Generated QR code
-* QR code scanner
-* Consumer verification page
+
+### Home page
+![Home page](screenshots/home.png)
+
+### Login
+![Login](screenshots/login.png)
+
+### Dashboard
+![Dashboard](screenshots/dashboard.png)
+
+### Farmer management
+![Farmers](screenshots/farmers.png)
+
+### Batch management
+![Batches](screenshots/batches.png)
+
+### Generated QR code
+![QR code](screenshots/qr.png)
+
+### Consumer verification
+![Verification page](screenshots/verify.png)
+
+### Mobile view
+![Mobile view](screenshots/mobile.png)
 
 ## Expected Outcomes
 The completed system is expected to provide:
@@ -201,4 +243,4 @@ The completed system is expected to provide:
 ## Project
 Academic Project – BIM, Tribhuvan University
 
-Status: Under Development
+Status: Completed (academic submission)
